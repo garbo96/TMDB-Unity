@@ -33,26 +33,26 @@ android {
         resValue("string", "tmdb_access_token", properties.getProperty("TMDB_ACCESS_TOKEN"))
     }
 
-    signingConfigs {
+    /*signingConfigs {
         create("release") {
             storeFile = file(properties.getProperty("storeFile"))
             storePassword = properties.getProperty("storePassword")
             keyAlias = properties.getProperty("keyAlias")
             keyPassword = properties.getProperty("keyPassword")
         }
-    }
+    }*/
 
     buildTypes {
         release {
             isMinifyEnabled = true
             isDebuggable = true
-            signingConfig = signingConfigs.getByName("release")
+            //signingConfig = signingConfigs.getByName("release")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         debug {
             isDebuggable = true
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("release")
+            //signingConfig = signingConfigs.getByName("release")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
