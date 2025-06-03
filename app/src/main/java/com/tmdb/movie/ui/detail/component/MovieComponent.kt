@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -26,10 +27,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -144,8 +148,6 @@ fun MovieBackdropLayout(
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 }
-
-                OpenWebButton(url = "https://vixsrc.to/movie/${movieDetails?.id ?: ""}")
             }
         }
     }
@@ -154,12 +156,19 @@ fun MovieBackdropLayout(
 @Composable
 fun OpenWebButton(url: String) {
     val context = LocalContext.current
-    Button(onClick = {
+    Button(
+        modifier = Modifier
+            .padding(top = 8.dp, start = 16.dp, end = 16.dp)
+            .wrapContentWidth(),
+        onClick = {
         val intent = Intent(context, WebViewActivity::class.java)
         intent.putExtra("url", url)
         context.startActivity(intent)
     }) {
-        Text("Open Link")
+        Icon(
+            imageVector = Icons.Filled.PlayArrow,
+            contentDescription = "Play Video"
+        )
     }
 }
 
@@ -188,6 +197,7 @@ fun MovieMiddleLayout(
                             end = if (index == genres.size - 1) 16.dp else 4.dp,
                         ),
                         onClick = { },
+                        enabled = false,
                         label = {
                             Text(
                                 modifier = Modifier.padding(horizontal = 6.dp),
@@ -235,18 +245,18 @@ fun MovieMiddleLayout(
                 modifier = Modifier.weight(1.0f), horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 AutoResizeText(
-                    modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp), text = if (mediaType == MediaType.MOVIE) {
-                        movieDetails?.getFormatRevenue() ?: "0.00"
-                    } else {
-                        movieDetails?.popularity?.formatWithCommasAndDecimals(2) ?: "0.00"
-                    }, style = MaterialTheme.typography.bodyMedium.copy(
+                    modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp),
+                    text = movieDetails?.getNiceDate(mediaType, false) ?: stringResource(id = R.string.key_unknown),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold
-                    ), fontSizeRange = FontSizeRange(12.sp, 16.sp), maxLines = 1
+                    ),
+                    fontSizeRange = FontSizeRange(12.sp, 16.sp),
+                    maxLines = 1
                 )
 
                 Text(
                     modifier = Modifier.padding(top = 8.dp),
-                    text = stringResource(if (mediaType == MediaType.MOVIE) R.string.key_revenue else R.string.key_popularity),
+                    text = stringResource(if (mediaType == MediaType.MOVIE) R.string.key_release_date else R.string.key_first_air_date),
                     style = MaterialTheme.typography.bodyMedium.copy(
                         color = MaterialTheme.colorScheme.onBackground
                     )
@@ -294,23 +304,9 @@ fun MovieMiddleLayout(
             Column(
                 modifier = Modifier.weight(1.0f), horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                AutoResizeText(
-                    modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp),
-                    text = movieDetails?.getNiceDate(mediaType, false) ?: stringResource(id = R.string.key_unknown),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold
-                    ),
-                    fontSizeRange = FontSizeRange(12.sp, 16.sp),
-                    maxLines = 1
-                )
-
-                Text(
-                    modifier = Modifier.padding(top = 8.dp),
-                    text = stringResource(if (mediaType == MediaType.MOVIE) R.string.key_release_date else R.string.key_first_air_date),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                )
+                movieDetails?.id?.let{
+                    OpenWebButton(url = "https://vixsrc.to/movie/${it}?autoplay=true")
+                }
             }
         }
 

@@ -26,20 +26,7 @@ class WebViewActivity : ComponentActivity(){
             android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
         )
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-        } else {
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = (
-                    View.SYSTEM_UI_FLAG_FULLSCREEN or
-                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    )
-        }
-       /* WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.decorView.post {
-            window.insetsController?.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-        }*/
+        window.insetsController?.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
 
         val frameLayout = FrameLayout(this)
         val webView = WebView(this)
