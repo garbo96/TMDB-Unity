@@ -16,12 +16,12 @@ project.rootProject.file("local.properties").inputStream().use { properties.load
 
 android {
     namespace = "com.tmdb.movie"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.tmdb.movie"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0.0"
 
@@ -67,7 +67,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
+        kotlinCompilerExtensionVersion = "1.5.10"
     }
     packaging {
         resources {
@@ -99,6 +99,9 @@ dependencies {
     implementation(libs.navigation.compose)
     // Hilt
     implementation(libs.dagger.hilt)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
     ksp(libs.dagger.hilt.compiler)
     // Hilt Navigation Compose
     implementation(libs.hilt.navigation.compose)

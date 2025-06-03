@@ -1,5 +1,6 @@
 package com.tmdb.movie.ui.detail.component
 
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.BorderStroke
@@ -27,6 +28,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -78,6 +80,7 @@ import com.tmdb.movie.data.MediaType
 import com.tmdb.movie.data.MovieDetails
 import com.tmdb.movie.data.Video
 import com.tmdb.movie.ext.formatWithCommasAndDecimals
+import com.tmdb.movie.ui.main.WebViewActivity
 import com.tmdb.movie.ui.theme.TMDBMovieTheme
 import eu.wewox.textflow.TextFlow
 import eu.wewox.textflow.TextFlowObstacleAlignment
@@ -141,8 +144,22 @@ fun MovieBackdropLayout(
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 }
+
+                OpenWebButton(url = "https://vixsrc.to/movie/${movieDetails?.id ?: ""}")
             }
         }
+    }
+}
+
+@Composable
+fun OpenWebButton(url: String) {
+    val context = LocalContext.current
+    Button(onClick = {
+        val intent = Intent(context, WebViewActivity::class.java)
+        intent.putExtra("url", url)
+        context.startActivity(intent)
+    }) {
+        Text("Open Link")
     }
 }
 

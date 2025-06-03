@@ -17,9 +17,16 @@
         android:theme="@style/Theme.TMDBMovie"
         tools:targetApi="31">
         <activity
+            android:name=".ui.main.WebViewActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.TMDBMovie" />
+        <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
