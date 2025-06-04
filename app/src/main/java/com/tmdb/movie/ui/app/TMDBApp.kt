@@ -47,7 +47,7 @@ fun TMDBApp(
     appState: TMDBAppState = rememberTMDBAppState(networkMonitor)
 ) {
     Surface(
-        modifier = Modifier.navigationBarsPadding(),
+        modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
     ) {
         val snackbarHostState = remember { SnackbarHostState() }

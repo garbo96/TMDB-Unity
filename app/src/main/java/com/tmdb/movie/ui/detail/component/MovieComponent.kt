@@ -302,14 +302,15 @@ fun MovieMiddleLayout(
                 )
             }
 
-            movieDetails?.id?.let {
-                UrlBuilder.movie(it.toString()).let { url ->
-
-                    Column(
-                        modifier = Modifier.weight(1.0f),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        OpenWebButton(url = url)
+            if (movieDetails?.seasons.isNullOrEmpty()){
+                movieDetails?.id?.let {
+                    UrlBuilder.movie(it.toString()).let { url ->
+                        Column(
+                            modifier = Modifier.weight(1.0f),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            OpenWebButton(url = url)
+                        }
                     }
                 }
             }
