@@ -155,7 +155,7 @@ fun MovieBackdropLayout(
 }
 
 @Composable
-fun OpenWebButton(url: String) {
+fun OpenWebButton(url: String, tmdbId: Int) {
     val context = LocalContext.current
     Button(
         modifier = Modifier
@@ -164,6 +164,7 @@ fun OpenWebButton(url: String) {
         onClick = {
         val intent = Intent(context, WebViewActivity::class.java)
         intent.putExtra("url", url)
+        intent.putExtra("tmdbId", tmdbId)
         context.startActivity(intent)
     }) {
         Icon(
@@ -309,7 +310,7 @@ fun MovieMiddleLayout(
                             modifier = Modifier.weight(1.0f),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            OpenWebButton(url = url)
+                            OpenWebButton(url = url, tmdbId = it)
                         }
                     }
                 }

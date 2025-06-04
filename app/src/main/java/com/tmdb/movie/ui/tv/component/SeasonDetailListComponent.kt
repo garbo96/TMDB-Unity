@@ -98,6 +98,9 @@ fun SeasonEpisodeItem(
                 )
                 val intent = Intent(context, WebViewActivity::class.java)
                 intent.putExtra("url", url)
+                intent.putExtra("tmdbId", episode.showId)
+                intent.putExtra("season", episode.seasonNumber)
+                intent.putExtra("episode", episode.episodeNumber)
                 context.startActivity(intent)
             },
     ) {
