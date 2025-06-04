@@ -2,6 +2,7 @@ package com.tmdb.movie.di
 
 import com.tmdb.movie.repository.IMovieRepository
 import com.tmdb.movie.repository.ISearchRepository
+import com.tmdb.movie.repository.IWatchHistoryRepository
 import com.tmdb.movie.repository.RecentSearchRepository
 import com.tmdb.movie.repository.TMDBMovieRepository
 import com.tmdb.movie.utils.monitor.ConnectivityManagerNetworkMonitor
@@ -29,4 +30,9 @@ interface AppModule {
     fun bindsSearchRepository(
         repository: RecentSearchRepository
     ): ISearchRepository
+
+    @Binds
+    fun bindsWatchHistoryRepository(
+        repository: com.tmdb.movie.repository.WatchHistoryRepository
+    ): IWatchHistoryRepository
 }

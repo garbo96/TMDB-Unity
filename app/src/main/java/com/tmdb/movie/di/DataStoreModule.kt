@@ -55,4 +55,8 @@ object DataStoreModule {
     @Provides
     fun providePopularMovieDao(database: TMDBDatabase) =
         database.popularMovieDao()
+
+    @Provides
+    fun provideWatchHistoryDao(database: TMDBDatabase) =
+        database.watchHistoryDao()
 }
