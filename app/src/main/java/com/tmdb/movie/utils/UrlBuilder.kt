@@ -38,6 +38,32 @@ object UrlBuilder {
         return url
     }
 
+    fun tv(tmdbId: String, season: String, episode: String, lang: String? = null, startAt:String? = null): String {
+
+        val url = Uri.Builder().apply{
+            scheme("https")
+            authority(AUTHORITY)
+            appendPath("tv")
+            appendPath(tmdbId)
+            appendPath(season)
+            appendPath(episode)
+            appendQueryParameter("autoplay", "true")
+            if (!startAt.isNullOrEmpty()) {
+                appendQueryParameter("startAt", startAt)
+            }
+            if (!lang.isNullOrEmpty()) {
+                appendQueryParameter("lang", startAt)
+            }
+
+            if(!primaryColor.isNullOrEmpty())
+                appendQueryParameter("primaryColor", primaryColor)
+
+            build()
+        }.toString()
+
+        return url
+    }
+
     @Composable
     private fun getPrimaryColorHex(): String {
         val color = MaterialTheme.colorScheme.primary

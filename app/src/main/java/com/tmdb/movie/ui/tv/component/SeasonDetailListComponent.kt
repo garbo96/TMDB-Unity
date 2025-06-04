@@ -1,5 +1,6 @@
 package com.tmdb.movie.ui.tv.component
 
+import android.content.Intent
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.content.res.AppCompatResources
@@ -61,7 +62,10 @@ import com.tmdb.movie.data.ImageSize
 import com.tmdb.movie.data.ImageType
 import com.tmdb.movie.data.SeasonDetailParam
 import com.tmdb.movie.ext.pxToDp
+import com.tmdb.movie.ui.detail.movieIdArg
+import com.tmdb.movie.ui.main.WebViewActivity
 import com.tmdb.movie.ui.theme.TMDBMovieTheme
+import com.tmdb.movie.utils.UrlBuilder
 
 @Composable
 fun SeasonEpisodeItem(
@@ -86,7 +90,15 @@ fun SeasonEpisodeItem(
             .fillMaxWidth()
             .shadow(elevation = 4.dp, shape = MaterialTheme.shapes.medium)
             .clickable {
-                toEpisodeDetail(episode.seasonNumber, episode.episodeNumber)
+                //toEpisodeDetail(episode.seasonNumber, episode.episodeNumber)
+                val url = UrlBuilder.tv(
+                    episode.showId.toString(),
+                    episode.seasonNumber.toString(),
+                    episode.episodeNumber.toString(),
+                )
+                val intent = Intent(context, WebViewActivity::class.java)
+                intent.putExtra("url", url)
+                context.startActivity(intent)
             },
     ) {
 
