@@ -18,8 +18,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -208,13 +208,12 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .navigationBarsPadding()
+                .statusBarsPadding()
                 .verticalScroll(rememberScrollState())
         ) {
-            Spacer(modifier = Modifier.height(toolbarHeight.pxToDp()))
 
             HomeMoviePagerComponent(
-                modifier = Modifier.padding(top = 16.dp),
+                modifier = Modifier.padding(top = 84.dp),
                 moviePopularState = moviePopularState,
                 onBuildImage = onBuildImage,
                 navigateToMovieDetail = navigateToMovieDetail,
@@ -292,8 +291,7 @@ fun HomeScreen(
                     .background(Color.Transparent)
                     .onGloballyPositioned {
                         toolbarHeight = it.size.height
-                    }
-                    .offset { IntOffset(x = 0, y = toolbarOffsetHeightPx.floatValue.roundToInt()) },
+                    },
                 onSearchQueryChanged = onSearchQueryChanged,
                 onSearchTriggered = onSearchTriggered,
                 onActiveStateChanged = onActiveStateChanged,

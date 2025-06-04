@@ -86,6 +86,7 @@ import com.tmdb.movie.data.Video
 import com.tmdb.movie.ext.formatWithCommasAndDecimals
 import com.tmdb.movie.ui.main.WebViewActivity
 import com.tmdb.movie.ui.theme.TMDBMovieTheme
+import com.tmdb.movie.utils.UrlBuilder
 import eu.wewox.textflow.TextFlow
 import eu.wewox.textflow.TextFlowObstacleAlignment
 
@@ -301,11 +302,15 @@ fun MovieMiddleLayout(
                 )
             }
 
-            Column(
-                modifier = Modifier.weight(1.0f), horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                movieDetails?.id?.let{
-                    OpenWebButton(url = "https://vixsrc.to/movie/${it}?autoplay=true")
+            movieDetails?.id?.let {
+                UrlBuilder.movie(it.toString()).let { url ->
+
+                    Column(
+                        modifier = Modifier.weight(1.0f),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        OpenWebButton(url = url)
+                    }
                 }
             }
         }
@@ -421,7 +426,8 @@ fun MainCastComponent(
                 modifier = Modifier
                     .size(60.dp)
                     .border(
-                        border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary), shape = CircleShape
+                        border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
+                        shape = CircleShape
                     )
                     .clip(CircleShape)
                     .clickable { onPeopleDetail(cast.id) },
@@ -435,7 +441,8 @@ fun MainCastComponent(
                 modifier = Modifier
                     .size(60.dp)
                     .border(
-                        border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary), shape = CircleShape
+                        border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
+                        shape = CircleShape
                     )
                     .clip(CircleShape)
                     .clickable { onPeopleDetail(cast.id) },
@@ -1028,7 +1035,8 @@ fun MovieDetailLoadingComponent(isTv: Boolean = false) {
                     Image(
                         modifier = Modifier
                             .padding(
-                                start = if (index == 0) 16.dp else 8.dp, end = if (index == 5) 16.dp else 8.dp
+                                start = if (index == 0) 16.dp else 8.dp,
+                                end = if (index == 5) 16.dp else 8.dp
                             )
                             .size(60.dp)
                             .placeholder(

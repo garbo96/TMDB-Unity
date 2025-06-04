@@ -22,6 +22,7 @@ import com.tmdb.movie.ui.main.vm.MainActivityUiState.Success
 import com.tmdb.movie.ui.main.vm.MainViewModel
 import com.tmdb.movie.ui.app.TMDBApp
 import com.tmdb.movie.ui.theme.TMDBMovieTheme
+import com.tmdb.movie.utils.UrlBuilder
 import com.tmdb.movie.utils.monitor.NetworkMonitor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -67,6 +68,7 @@ class MainActivity : ComponentActivity() {
                 darkTheme = shouldUseDarkTheme(uiState = uiState),
                 dynamicColor = shouldUseDynamicTheming(uiState = uiState)
             ) {
+                UrlBuilder.init()
                 TMDBApp(networkMonitor)
             }
         }

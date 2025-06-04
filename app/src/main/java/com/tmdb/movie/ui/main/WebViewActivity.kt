@@ -2,7 +2,6 @@ package com.tmdb.movie.ui.main
 
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.webkit.WebChromeClient
@@ -13,7 +12,6 @@ import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
-import androidx.core.view.WindowCompat
 
 class WebViewActivity : ComponentActivity(){
     @RequiresApi(Build.VERSION_CODES.R)
@@ -25,8 +23,17 @@ class WebViewActivity : ComponentActivity(){
             android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
             android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
         )
-
-        window.insetsController?.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+        window.decorView.post{
+            // Set the system UI visibility to hide the status and navigation bars
+            /*window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)*/
+            window.insetsController?.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+        }
 
         val frameLayout = FrameLayout(this)
         val webView = WebView(this)
